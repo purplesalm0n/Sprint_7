@@ -21,9 +21,21 @@ public class CourierClient extends BaseClient {
                 .post("courier/login");
     }
 
-    @Step("Удаляем курьера с ID: {courierId}")
+    @Step("Удаляем курьера по ID: {courierId}")
     public Response deleteCourier(int courierId) {
         return givenRequest()
                 .delete("courier/" + courierId);
+    }
+
+    @Step("Удаляем курьера по логину и паролю")
+    public void deleteCourierByCredentials(Courier courier) {
+        Integer id = loginCourier(CourierCredentials.from(courier))
+                .then()
+                .extract()
+                .path("id");
+
+        if (id != null) {
+            deleteCourier(id);
+        }
     }
 }

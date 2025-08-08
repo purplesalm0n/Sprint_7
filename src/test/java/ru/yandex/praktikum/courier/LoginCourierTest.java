@@ -26,11 +26,9 @@ public class LoginCourierTest {
     }
 
     @After
-    @Step("Удаляем тестового курьера")
+    @Step("Удаление тестового курьера")
     public void tearDown() {
-        if (courierId != 0) {
-            courierClient.deleteCourier(courierId);
-        }
+        courierClient.deleteCourierByCredentials(courier);
     }
 
     @Test
